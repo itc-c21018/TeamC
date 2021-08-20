@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageGenerator : MonoBehaviour
 {
     int StageChipSize = 30;
 
     int currentChipIndex;
-    int level = 1;
+    public int level = 1;
 
     public Transform character;
     public GameObject[] stageChips;
     public int startChipIndex;
     public int preInstantiate;
     public int levelUpIndex;
-    public float speedlevel = 0;
-    public float gravitylevel = 0;
+    public int score;
+    public int speedlevel;
+    public float gravitylevel;
+    public Text levelText;
+    public Text scoreText;
     public List<GameObject> generatedStageList = new List<GameObject>();
     public GUIStyle textStyle;
 
@@ -36,26 +40,29 @@ public class StageGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        speedlevel = level - 1;
+        gravitylevel = (float)level * 0.1f;
         //
         int charaPositionIndex = (int)(character.position.z / StageChipSize);
         
+        score = (int)(character.position.z + script.scoreindex);
         //
         if (charaPositionIndex + preInstantiate > currentChipIndex)
         {
             UpdateStage(charaPositionIndex + preInstantiate);
         }
 
+        levelText.text = "LEVEL : " + level;
+        scoreText.text = "スコア : " + score + "m";
+
         //理想：キャラの進んだ距離が一定以上になると
         if(charaPositionIndex / levelUpIndex >= level)
         {
-            //理想：関数を呼び出し or プレイヤーの移動速度を上げ「level」に+1
-            speedlevel++;//スピードが上昇する値（1ずつ）
-            gravitylevel += 0.1f;
-            level++;
+            level ++;
         }
     }
 
-    void OnGUI()
+    /*void OnGUI()
     {
         GUI.color = Color.black;
 
@@ -68,7 +75,7 @@ public class StageGenerator : MonoBehaviour
 
         GUI.Label(new Rect(50, 120, 100, 30), "スコア" + score + "ｍ", textStyle);
 
-    }
+    }*/
 
     //
     void UpdateStage(int toChipIndex)

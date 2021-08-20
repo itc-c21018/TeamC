@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Tapioka
   - Enemy2
+  - Item1
   layers:
   - Default
   - TransparentFX

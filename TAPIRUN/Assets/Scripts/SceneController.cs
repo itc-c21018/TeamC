@@ -11,14 +11,19 @@ public class SceneController : MonoBehaviour
         
     }
 
-    public void OnStartButtonClicked1()//ゲーム画面に移動
+    public void OnStartButtonClicked1()//ステージセレクト画面に移動
     {
         SceneManager.LoadScene("StageSelect");
     }
 
-    public void OnStartButtonClicked2()//ゲーム画面に移動
+    public void OnStartButtonClicked2()//ゲーム画面Eに移動
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Endless");
+    }
+
+    public void OnStartButtonClicked3()//ゲーム画面Tに移動
+    {
+        SceneManager.LoadScene("TimeAttack");
     }
 
 

@@ -17,6 +17,7 @@ public class TapiokaController : MonoBehaviour
     public int scoreindex = 0;
     int targetLine;
     int life = DefaultLife;
+
     float recoverTime = 0.0f;
 
     public float gravity;
@@ -25,7 +26,8 @@ public class TapiokaController : MonoBehaviour
     public float speedJump;
     public float accelerationZ;
     public int scoreD;
-    
+    public int collectpoint = 0;
+
     public int Life()
     {
         return life;
@@ -151,10 +153,11 @@ public class TapiokaController : MonoBehaviour
     //
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (IsStun()) return;
+        //if (IsStun()) return;
 
         if(hit.gameObject.tag == "Enemy")
         {
+            if (IsStun()) return;
             //
             life--;
             //scoreindex = scoreindex + scoreD;
@@ -169,6 +172,7 @@ public class TapiokaController : MonoBehaviour
 
         if (hit.gameObject.tag == "Enemy2")
         {
+            if (IsStun()) return;
             //
             scoreindex = scoreindex + scoreD;
             recoverTime = StunDuration;
@@ -179,5 +183,25 @@ public class TapiokaController : MonoBehaviour
             //
             Destroy(hit.gameObject);
         }
+
+        if (hit.gameObject.tag == "Item1")
+        {
+            script.level++;
+            Destroy(hit.gameObject);
+        }
+
+        if (hit.gameObject.tag == "Target")
+        {
+            
+            Destroy(hit.gameObject);
+        }
     }
+    /*void OnControllerColliderGet(ControllerColliderGet get)
+    {
+        if (get.gameObject.tag == "Item1")
+        {
+            script.speedlevel++;
+            Destroy(get.gameObject);
+        }
+    }*/
 }
